@@ -9,8 +9,10 @@ const PORT = 4000;
 const app = express();
 const logger = morgan("dev");
 
-app.use(logger);
 
+app.set("view engine", "pug");
+app.set("views", process.cwd() + "/src/views"); //기본값이 ./views이기때문에 현재 작업 디렉토리에 /src/views를 add
+app.use(logger);
 app.use("/", globalRouter);
 app.use("/users", userRouter);
 app.use("/videos", videoRouter);
