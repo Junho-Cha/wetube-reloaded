@@ -3,6 +3,12 @@ include mixins/video
 
 block content
   h2 Welcome here you will see the trending videos
+
+  header
+    nav
+      ul
+        li
+          a(href="/videos/upload") Upload video
   ul
     each potato in videos
       +video(potato)
