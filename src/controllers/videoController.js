@@ -40,12 +40,22 @@ export const getEdit = async (req, res) => {
   if (!video) {
     return res.render("404", { pageTitle: "Video not found." });
   }
-  return res.render("edit", { pageTitle: `Edit ${video.title}`, video });
+  return res.render("edit", { pageTitle: `Edit: ${video.title}`, video });
 };
 
-export const postEdit = (req, res) => {
+export const postEdit = async (req, res) => {
   const { id } = req.params;
-  const { title } = req.body; //req.body로 form 안에 value를 받는다.
+  const { title, description, hashtags } = req.body;
+  const video = await Video.findById(id);
+  if (!video) {
+    return res.render("404", { pageTitle: "Video not found." });
+  }
+  video.title = title;
+  video.description = description;
+  video.hashtags = hashtags
+    .split(",")
+    .map((word) => (word.startWith("#") ? word : `#${word}`));
+  await video.save();
   return res.redirect(`/videos/${id}`);
 };
 
