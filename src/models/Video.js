@@ -11,6 +11,12 @@ const videoSchema = new mongoose.Schema({
   },
 });
 
+videoSchema.static("formatHashtags", function (hashtags) {
+  return hashtags
+    .split(",")
+    .map((word) => (word.startsWith("#") ? word : `#${word}`));
+});
+
 videoSchema.pre("save", async function () {
   // pre middleware에 save 이벤트 적용
   this.hashtags = this.hashtags[0] //첫번째 문자열 가져와
