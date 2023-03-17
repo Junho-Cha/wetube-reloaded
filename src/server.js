@@ -4,6 +4,7 @@ import session from "express-session";
 import rootRouter from "./routers/rootRouter";
 import userRouter from "./routers/userRouter";
 import videoRouter from "./routers/videoRouter";
+import { localsMiddleware } from "./views/middlewares";
 
 const app = express();
 const logger = morgan("dev");
@@ -21,6 +22,9 @@ app.use(
     saveUninitialized: true,
   })
 );
+
+//locals middleware는 session middleware보다 뒤에 작성해야 session에 접근할 수 있다.
+app.use(localsMiddleware);
 app.use("/", rootRouter);
 app.use("/videos", videoRouter);
 app.use("/users", userRouter);
