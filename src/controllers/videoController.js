@@ -92,9 +92,16 @@ export const search = async (req, res) => {
   if (keyword) {
     videos = await Video.find({
       title: {
-        $regex: new RegExp(`${keyword}$`, "i"),
+        $regex: new RegExp(keyword, "i"),
       },
     });
   }
-  return res.render("search", { pageTitle: "Search" });
+  return res.render("search", { pageTitle: "Search", videos });
 };
+/*
+$regex: new RegExp(keyword, "i") -> keyword가 포함된 것들을 검색.
+$regex: new RegExp(`^${keyword}`, "i") -> keyword로 시작되는 것들을 검색.
+$regex: new RegExp(`${keyword}$`, "i") -> keyword로 끝나는 것들을 검색.
+(여기서 "i" = Welcome,welcome 둘다 같게 해주는것 즉 lowercase,uppercase의 구분을 없게 해주는것)
+( mongoose가 아닌 mongoDB가 해주는 기능이다)
+*/
