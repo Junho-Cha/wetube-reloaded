@@ -28,6 +28,7 @@ app.use(
 //locals middleware는 session middleware보다 뒤에 작성해야 session에 접근할 수 있다.
 app.use(localsMiddleware);
 app.use("/uploads", express.static("uploads"));
+app.use("/static", express.static("assets"));
 app.use("/", rootRouter);
 app.use("/videos", videoRouter);
 app.use("/users", userRouter);
