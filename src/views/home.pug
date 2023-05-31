@@ -2,13 +2,21 @@ extends base.pug
 include mixins/video
 
 block content
-  header
-    nav
-      ul
-        li
-          a(href="/videos/upload") Upload video
-  ul
+  .video__grid
     each potato in videos
+      +video(potato)
+      +video(potato)
+      +video(potato)
+      +video(potato)
+      +video(potato)
+      +video(potato)
+      +video(potato)
+      +video(potato)
+      +video(potato)
+      +video(potato)
+      +video(potato)
+      +video(potato)
+      +video(potato)
       +video(potato)
     else
       li Sorry nothing found
